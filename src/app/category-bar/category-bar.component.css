@@ -1,0 +1,14 @@
+.category-item {
+    cursor: pointer;
+}
+
+.inner {
+    margin: 10px;
+}
+
+
+/* .list-group-item {
+    background: #2EFE9A;
+    border: 1px;
+    border-color: black;
+} */
