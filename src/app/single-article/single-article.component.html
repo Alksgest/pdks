@@ -6,8 +6,11 @@
         <mat-icon>folder_open</mat-icon>
         <label *ngFor="let cat of article.categories">{{cat['title']}}</label>
     </div>
-    <div>
+    <div [innerHTML]="article.content">
         <h4 [style.textAlign]="'center'">{{article.title}}</h4>
         {{article.content}}
+        <!-- <pre>
+            {{article.content}}
+        </pre> -->
     </div>
 </div>

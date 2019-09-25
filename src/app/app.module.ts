@@ -18,6 +18,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { FooterComponent } from './footer/footer.component';
 import { SingleArticleComponent } from './single-article/single-article.component';
 import { ArticleService } from './common/services/article.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ArticleService } from './common/services/article.service';
     HomeComponent,
     ArticlesComponent,
     FooterComponent,
-    SingleArticleComponent
+    SingleArticleComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,9 @@ import { ArticleService } from './common/services/article.service';
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'articles/:id', component: SingleArticleComponent }
+      { path: 'article/:id', component: SingleArticleComponent },
+      { path: 'articles', component: HomeComponent},
+      { path: '**', component: NotFoundComponent }
     ])
   ],
   providers: [

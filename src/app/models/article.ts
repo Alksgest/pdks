@@ -6,4 +6,5 @@ export interface Article {
     author: any;
     categories: Category[];
     content: string;
+    dateTime: Date;
 }

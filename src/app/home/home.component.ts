@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../common/services/article.service';
+import { Article } from '../models/article';
+import { ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { CategoryService } from '../common/services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +12,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  articles: Article[];
+  catId: number;
+
+  constructor(
+    private service: ArticleService,
+    private activatedRoute: ActivatedRoute,
+    private catService: CategoryService) { }
 
   ngOnInit() {
+    const result = this.activatedRoute.queryParamMap
+      .pipe(
+        map((params) => {
+          return params.get('category');
+        })
+      ).subscribe(catId => {
+        const category = this.catService.getCategory(+catId);
+        this.articles = this.service.getArticles(category);
+      });
   }
 
 }

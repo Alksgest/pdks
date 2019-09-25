@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category';
+import { CategoryService } from '../common/services/category.service';
 
 @Component({
   selector: 'app-category-bar',
@@ -8,20 +9,16 @@ import { Category } from '../models/category';
 })
 export class CategoryBarComponent implements OnInit {
 
+
+  // <!-- <a class="nav-link" routerLink="/followers" [queryParams]="{page: 1, order: 'newest'}">Followers</a> -->
+
   header = 'Категорії';
   // temp categories
-  categories: Category[] = [
-    { id: 1, title: 'Контакти', link: '#' },
-    { id: 2, title: 'ПдКС', link: '#' },
-    { id: 2, title: 'Події/Особистості', link: '#' },
-    { id: 2, title: 'Про масонство', link: '#' },
-    { id: 2, title: 'Статті', link: '#' },
-    { id: 2, title: 'Як стати масоном?', link: '#' },
-  ];
-
-  constructor() { }
+  categories: Category[];
+  constructor(private catService: CategoryService) { }
 
   ngOnInit() {
+    this.categories = this.catService.getCategories();
   }
 
 }

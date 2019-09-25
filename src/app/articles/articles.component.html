@@ -1,16 +1,15 @@
 <div class="article-container">
     <div class="container" *ngFor="let article of articles">
         <div class="">
-            <h2 class="pointer-header" [routerLink]="'articles/' + article.id">{{article.title}}</h2>
+            <h2 class="pointer-header" [routerLink]="'article/' + article.id">{{article.title}}</h2>
             <div>
                 <mat-icon> person_pin</mat-icon>
                 <label>{{article.author}}</label>
                 <mat-icon>folder_open</mat-icon>
                 <label *ngFor="let cat of article.categories">{{cat['title']}}</label>
             </div>
-            <div>
+            <div [innerHTML]="article.content">
                 <h4 [style.textAlign]="'center'">{{article.title}}</h4>
-                {{article.content}}
             </div>
         </div>
         <p></p>
