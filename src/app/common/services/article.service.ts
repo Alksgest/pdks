@@ -121,6 +121,18 @@ export class ArticleService {
   }
 
   addArticle(article: Article) {
+    article.id = this.getMaxId() + 1; // should be removed, if we call server
     this.articles.push(article);
+
+    console.log(article);
+    console.log(this.articles.length);
+  }
+
+  private getMaxId() {
+    let max = 0;
+    for (const article of this.articles) {
+      max = article.id > max ? article.id : max;
+    }
+    return max;
   }
 }

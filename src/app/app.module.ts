@@ -4,6 +4,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -44,10 +45,12 @@ import { CreateArticleComponent } from './create-article/create-article.componen
     HttpClientModule,
     MaterialComponentsModule,
     BrowserAnimationsModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'article/:id', component: SingleArticleComponent },
-      { path: 'articles', component: HomeComponent},
+      { path: 'articles', component: HomeComponent },
+      { path: 'create-article', component: CreateArticleComponent },
       { path: '**', component: NotFoundComponent }
     ])
   ],
