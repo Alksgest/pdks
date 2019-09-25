@@ -19,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SingleArticleComponent } from './single-article/single-article.component';
 import { ArticleService } from './common/services/article.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CreateArticleComponent } from './create-article/create-article.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ArticlesComponent,
     FooterComponent,
     SingleArticleComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CreateArticleComponent
   ],
   imports: [
     BrowserModule,

@@ -119,4 +119,8 @@ export class ArticleService {
   getArticle(id: number) {
     return this.articles.filter(a => a.id === id)[0];
   }
+
+  addArticle(article: Article) {
+    this.articles.push(article);
+  }
 }
