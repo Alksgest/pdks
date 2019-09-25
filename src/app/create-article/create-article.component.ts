@@ -3,6 +3,7 @@ import { CategoryService } from '../common/services/category.service';
 import { Category } from '../models/category';
 import { Article } from '../models/article';
 import { ArticleService } from '../common/services/article.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-article',
@@ -18,7 +19,8 @@ export class CreateArticleComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,12 @@ export class CreateArticleComponent implements OnInit {
     article.categories = this.choosedCategories;
 
     this.articleService.addArticle(article);
+
+    this.redirectToHome();
+  }
+
+  private redirectToHome() {
+    this.router.navigate(['/']);
   }
 
 }

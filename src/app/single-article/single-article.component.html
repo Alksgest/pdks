@@ -5,12 +5,7 @@
         <label>{{article.author}}</label>
         <mat-icon>folder_open</mat-icon>
         <label *ngFor="let cat of article.categories">{{cat['title']}}</label>
+        <label class="float-sm-right">{{article.dateTime | date}}</label>
     </div>
-    <div [innerHTML]="article.content">
-        <h4 [style.textAlign]="'center'">{{article.title}}</h4>
-        {{article.content}}
-        <!-- <pre>
-            {{article.content}}
-        </pre> -->
-    </div>
+    <div [innerHTML]="article.content"></div>
 </div>
