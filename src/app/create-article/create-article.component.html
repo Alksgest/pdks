@@ -3,28 +3,32 @@
         <div class=" form-group">
             <div>
                 <label for="title ">Заголовок</label>
-                <input name="title" ngModel id="title" type="text " class="form-control " aria-describedby="basic-addon2 ">
+                <input #title="ngModel" name="title" ngModel id="title" type="text " class="form-control" aria-describedby="basic-addon2" required>
+                <div *ngIf="title.touched && !title.valid" class="alert alert-danger">Введіть заголовок.</div>
             </div>
 
             <div class="form-group">
                 <label for="text ">Текст (включно з html розміткою):</label>
-                <textarea name="content" ngModel class="form-control" rows="5 " id="text "></textarea>
+                <textarea #text="ngModel" name="content" ngModel class="form-control" rows="5 " id="text" required></textarea>
+                <div *ngIf="text.touched && !text.valid" class="alert alert-danger">Введіть текст.</div>
             </div>
 
-            <div ngbDropdown class="d-inline-block form-group ">
-                <button class="btn btn-outline-primary " id="categoryDropdown " ngbDropdownToggle>Оберіть категорію</button>
-                <div ngbDropdownMenu aria-labelledby="categoryDropdown ">
-                    <button (click)="categoryClick(cat)" ngbDropdownItem *ngFor="let cat of categories ">{{cat.title}}</button>
+            <div>
+                <div ngbDropdown class="d-inline-block form-group">
+                    <button class="btn btn-outline-primary " id="categoryDropdown " ngbDropdownToggle>Оберіть категорію</button>
+                    <div #chosedCats="ngModel" ngModel ngbDropdownMenu aria-labelledby="categoryDropdown">
+                        <button (click)="categoryClick(cat)" ngbDropdownItem *ngFor="let cat of categories">{{cat.title}}</button>
+                    </div>
                 </div>
+                <span *ngFor="let cat of choosedCategories">
+                    {{cat.title}}
+                    <button type="button" (click)="removeCategory(cat)" class="btn">x</button>
+                </span>
+                <div *ngIf="choosedCategories.length < 1" class="alert alert-danger">Виберіть принаймні одну категорію.</div>
             </div>
-
-            <span *ngFor="let cat of choosedCategories ">
-                {{cat.title}}
-                <button type="button" (click)="removeCategory(cat)" class="btn">x</button>
-            </span>
 
         </div>
-        <button (click)="createArticle(f.value)" class="btn btn-primary" type="submit ">Стоворити</button>
+        <button [disabled]="!(title.valid && text.valid && cats.valid)" (click)="createArticle(f.value)" class="btn btn-primary" type="submit ">Стоворити</button>
     </form>
 </div>
 
