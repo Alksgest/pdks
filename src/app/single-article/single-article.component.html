@@ -1,10 +1,13 @@
 <div class="container">
-    <h2 class="" [routerLink]="'articles/' + article.id">{{article.title}}</h2>
+    <h2 class="" [routerLink]="'/article/' + article.id">{{article.title}}</h2>
     <div>
         <mat-icon> person_pin</mat-icon>
         <label>{{article.author}}</label>
-        <mat-icon>folder_open</mat-icon>
-        <label *ngFor="let cat of article.categories">{{cat['title']}}</label>
+        <span *ngFor="let cat of article.categories" class="">
+                &nbsp;&nbsp;
+                <mat-icon>folder_open</mat-icon>
+                <label class="pointer-header" [routerLink]="'/articles/'" [queryParams]="{category: cat.id}">{{cat['title']}}</label>
+            </span>
         <label class="float-sm-right">{{article.dateTime | date}}</label>
     </div>
     <div [innerHTML]="article.content"></div>

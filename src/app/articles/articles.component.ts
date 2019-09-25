@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../models/article';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -11,7 +12,7 @@ export class ArticlesComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   private _articles: Article[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -30,6 +31,14 @@ export class ArticlesComponent implements OnInit {
 
   set articles(value: Article[]) {
     this._articles = value;
+  }
+
+  route(articleId: string) {
+    if (this._articles.length <= +articleId) {
+      this.router.navigate(['/not-found']);
+    } else {
+      this.router.navigate(['/article' + '/' + articleId]);
+    }
   }
 
 }
