@@ -3,6 +3,7 @@ import { Article } from 'src/app/models/article';
 import { Category } from 'src/app/models/category';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +17,19 @@ export class ArticleService {
 
   getArticles(categoryId?: string) {
     if (!categoryId) {
-      return this.http.get<Article[]>('https://localhost:44387/api/articles');
+      return this.http.get<Article[]>(environment.apiUrl + 'articles/');
     } else {
-      return this.http.get<Article[]>('https://localhost:44387/api/articles/category/' + categoryId);
+      return this.http.get<Article[]>(environment.apiUrl + 'articles/category' + categoryId);
     }
   }
 
   getArticle(id: string) {
-    return this.http.get<Article>('https://localhost:44387/api/articles/' + id);
+    return this.http.get<Article>(environment.apiUrl + 'articles/' + id);
   }
 
   addArticle(article: Article) {
     const valueToSend = JSON.stringify(article);
-    this.http.post<Article>('https://localhost:44387/api/articles/', article).subscribe((r) => console.log(r));
+    this.http.post<Article>(environment.apiUrl + 'articles/', article).subscribe((r) => console.log(r));
   }
 
   private getMaxId() {

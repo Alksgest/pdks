@@ -5,7 +5,7 @@ export interface Article {
     id: number;
     title: string;
     author: User;
-    categories: Category[];
+    category: Category;
     content: string;
     creationDate: Date;
 }

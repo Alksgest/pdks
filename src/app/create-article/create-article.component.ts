@@ -22,7 +22,7 @@ export class CreateArticleComponent implements OnInit {
     {
       id: -1,
       author: null,
-      categories: null,
+      category: null,
       content: '',
       creationDate: null,
       title: ''
@@ -61,9 +61,9 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    this._article.author = { id: 1, role: 'admin', username: 'alksgest' };
+    this._article.author = { userId: 1, username: 'alksgest',  role: 'sus' };
     this._article.creationDate = new Date();
-    this._article.categories = this.choosedCategories;
+    this._article.category = this.choosedCategories[0];
 
     this.articleService.addArticle(this._article);
 

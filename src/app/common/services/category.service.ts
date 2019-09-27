@@ -7,12 +7,12 @@ import { Category } from 'src/app/models/category';
 export class CategoryService {
 
   private categories: Category[] = [
-    { id: 1, title: 'Контакти' },
-    { id: 2, title: 'ПдКС' },
-    { id: 3, title: 'ПодіїОсобистості' },
-    { id: 4, title: 'Про масонство' },
-    { id: 5, title: 'Статті' },
-    { id: 6, title: 'Як стати масоном?' },
+    { categoryId: 1, title: 'Контакти' },
+    { categoryId: 2, title: 'ПдКС' },
+    { categoryId: 3, title: 'Події/Особистості' },
+    { categoryId: 4, title: 'Про масонство' },
+    { categoryId: 5, title: 'Статті' },
+    { categoryId: 6, title: 'Як стати масоном?' },
   ];
 
   constructor() { }
@@ -23,6 +23,6 @@ export class CategoryService {
   }
 
   getCategory(id: number) {
-    return this.categories.filter(c => c.id === id)[0];
+    return this.categories.filter(c => c.categoryId === id)[0];
   }
 }
