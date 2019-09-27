@@ -1,10 +1,11 @@
 import { Category } from './category';
+import { User } from './user';
 
 export interface Article {
     id: number;
     title: string;
-    author: any;
+    author: User;
     categories: Category[];
     content: string;
-    dateTime: Date;
+    creationDate: Date;
 }

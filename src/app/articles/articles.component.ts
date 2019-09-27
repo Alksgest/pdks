@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../models/article';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ArticleService } from '../common/services/article.service';
+import { CategoryService } from '../common/services/category.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-articles',
@@ -10,35 +13,43 @@ import { Router } from '@angular/router';
 export class ArticlesComponent implements OnInit {
 
   // tslint:disable-next-line: variable-name
-  private _articles: Article[];
+  private _articles: Article[] = [];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private articlesService: ArticleService,
+    private catService: CategoryService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
-  }
-
-  @Input() get articles() {
-    return this._articles.sort((a, b) => {
-      if (a.dateTime > b.dateTime) {
-        return -1;
-      } else if (a.dateTime === b.dateTime) {
-        return 0;
-      } else {
-        return 1;
-      }
+    this.route.queryParamMap
+    .pipe(
+      map((params) => {
+        return params.get('category');
+      })
+    ).subscribe(catId => {
+      this.articlesService.getArticles(catId)
+        .subscribe(aritcles =>
+          this.articles = aritcles);
     });
   }
 
-  set articles(value: Article[]) {
-    this._articles = value;
-  }
-
-  route(articleId: string) {
-    if (this._articles.length <= +articleId) {
-      this.router.navigate(['/not-found']);
-    } else {
-      this.router.navigate(['/article' + '/' + articleId]);
+  get articles() {
+    if (this._articles) {
+      return this._articles.sort((a, b) => {
+        if (a.creationDate > b.creationDate) {
+          return -1;
+        } else if (a.creationDate === b.creationDate) {
+          return 0;
+        } else {
+          return 1;
+        }
+      });
     }
   }
 
+  @Input() set articles(value: Article[]) {
+    this._articles = value;
+  }
 }

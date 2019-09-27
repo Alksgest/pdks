@@ -21,15 +21,7 @@ export class HomeComponent implements OnInit {
     private catService: CategoryService) { }
 
   ngOnInit() {
-    const result = this.activatedRoute.queryParamMap
-      .pipe(
-        map((params) => {
-          return params.get('category');
-        })
-      ).subscribe(catId => {
-        const category = this.catService.getCategory(+catId);
-        this.articles = this.service.getArticles(category);
-      });
+
   }
 
 }

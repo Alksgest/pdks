@@ -17,6 +17,17 @@ export class CreateArticleComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   private _choosedCategories: Category[] = [];
 
+  // tslint:disable-next-line: variable-name
+  private _article: Article =
+    {
+      id: -1,
+      author: null,
+      categories: null,
+      content: '',
+      creationDate: null,
+      title: ''
+    };
+
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -35,6 +46,10 @@ export class CreateArticleComponent implements OnInit {
     return this._choosedCategories;
   }
 
+  get article() {
+    return this._article;
+  }
+
   categoryClick(category: Category) {
     this._choosedCategories.push(category);
   }
@@ -44,12 +59,13 @@ export class CreateArticleComponent implements OnInit {
     this._choosedCategories.splice(index, 1);
   }
 
-  createArticle(article: Article) {
-    article.author = 'admin';
-    article.dateTime = new Date();
-    article.categories = this.choosedCategories;
+  // article: Article
+  createArticle() {
+    this._article.author = { id: 1, role: 'admin', username: 'alksgest' };
+    this._article.creationDate = new Date();
+    this._article.categories = this.choosedCategories;
 
-    this.articleService.addArticle(article);
+    this.articleService.addArticle(this._article);
 
     this.redirectToHome();
   }

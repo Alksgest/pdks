@@ -48,8 +48,8 @@ import { CreateArticleComponent } from './create-article/create-article.componen
     NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'article/:id', component: SingleArticleComponent },
       { path: 'articles', component: HomeComponent },
+      { path: 'articles/:id', component: SingleArticleComponent },
       { path: 'create-article', component: CreateArticleComponent },
       { path: '**', component: NotFoundComponent }
     ])
