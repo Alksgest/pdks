@@ -18,7 +18,11 @@ export class CategoryBarComponent implements OnInit {
   constructor(private catService: CategoryService) { }
 
   ngOnInit() {
-    this.categories = this.catService.getCategories();
+    this.catService.getCategories()
+      .subscribe(cats => {
+        this.categories = cats;
+      });
+    // this.categories = this.catService.getCategories();
   }
 
 }

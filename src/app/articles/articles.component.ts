@@ -31,7 +31,7 @@ export class ArticlesComponent implements OnInit {
     ).subscribe(catId => {
       this.articlesService.getArticles(catId)
         .subscribe(aritcles =>
-          this.articles = aritcles);
+          this._articles = aritcles);
     });
   }
 

@@ -3,11 +3,16 @@
     <div>
         <mat-icon> person_pin</mat-icon>
         <label>{{article.author.username}}</label>
-        <span *ngFor="let cat of article.categories" class="">
+        <!-- <span *ngFor="let cat of article.categories" class="">
                 &nbsp;&nbsp;
                 <mat-icon>folder_open</mat-icon>
                 <label>{{cat['title']}}</label>
-            </span>
+            </span> -->
+        <span>
+            &nbsp;&nbsp;
+        <mat-icon>folder_open</mat-icon>
+        <label class="pointer-header" [routerLink]="'/articles/'" [queryParams]="{category: article.category.id}">{{article.category.title}}</label>
+        </span>
         <label class="float-sm-right">{{article.creationDate | date}}</label>
     </div>
     <div [innerHTML]="article.content"></div>

@@ -5,10 +5,11 @@
             <div class="padding-icon">
                 <mat-icon> person_pin</mat-icon>
                 <label>{{article.author.username}}</label>
-                <span *ngFor="let cat of article.categories" class="">
+                <!-- <span *ngFor="let cat of article.categories" class=""> -->
+                <span>
                     &nbsp;&nbsp;
-                    <mat-icon>folder_open</mat-icon>
-                    <label class="pointer-header" [routerLink]="'/articles/'" [queryParams]="{category: cat.id}">{{cat['title']}}</label>
+                <mat-icon>folder_open</mat-icon>
+                <label class="pointer-header" [routerLink]="'/articles/'" [queryParams]="{category: article.category['id']}">{{article.category.title}}</label>
                 </span>
                 <label class="float-sm-right">{{article.creationDate | date}}</label>
             </div>

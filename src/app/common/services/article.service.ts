@@ -19,7 +19,7 @@ export class ArticleService {
     if (!categoryId) {
       return this.http.get<Article[]>(environment.apiUrl + 'articles/');
     } else {
-      return this.http.get<Article[]>(environment.apiUrl + 'articles/category' + categoryId);
+      return this.http.get<Article[]>(environment.apiUrl + 'articles/category/' + categoryId);
     }
   }
 

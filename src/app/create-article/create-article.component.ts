@@ -35,7 +35,10 @@ export class CreateArticleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._categories = this.categoryService.getCategories();
+    this.categoryService.getCategories()
+      .subscribe(cats => {
+        this._categories = cats;
+      });
   }
 
   get categories() {
@@ -61,7 +64,7 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    this._article.author = { userId: 1, username: 'alksgest',  role: 'sus' };
+    this._article.author = { id: 1, username: 'alksgest', role: 'admin' };
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];
 
