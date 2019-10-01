@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Article } from 'src/app/models/article';
-import { Category } from 'src/app/models/category';
+import { Article } from 'src/app/common/models/article';
+import { Category } from 'src/app/common/models/category';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';

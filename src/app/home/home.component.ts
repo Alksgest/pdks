@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../common/services/article.service';
-import { Article } from '../models/article';
+import { Article } from '../common/models/article';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { CategoryService } from '../common/services/category.service';

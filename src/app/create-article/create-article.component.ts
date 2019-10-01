@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../common/services/category.service';
-import { Category } from '../models/category';
-import { Article } from '../models/article';
+import { Category } from '../common/models/category';
+import { Article } from '../common/models/article';
 import { ArticleService } from '../common/services/article.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class CreateArticleComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   private _article: Article =
     {
-      id: -1,
+      id: null,
       author: null,
       category: null,
       content: '',
