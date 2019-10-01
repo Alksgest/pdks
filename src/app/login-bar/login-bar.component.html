@@ -1,15 +1,16 @@
-<form>
+<form [formGroup]="authForm">
     <div class="form-group inner">
-        <input class="form-control" ngModel #login="ngModel" name="login" matInput placeholder="Ім’я користувача:" required>
+        <input formControlName="username" class="form-control" matInput placeholder="Ім’я користувача:" required>
         <p></p>
-        <input autocomplete="sus" class="form-control" type="password" ngModel #password="ngModel" name="password" matInput placeholder="Пароль:" required>
+        <input formControlName="password" class="form-control" autocomplete="section-blue shipping address-level2" type="password" matInput placeholder="Пароль:" required>
         <p></p>
+        <div *ngIf="!isValid" class="alert alert-danger">Логін або пароль не правильні</div>
         <div>
-            <input class="btn btn-primary float-sm-right" type="submit" value=" Увійти">
+            <button name="submitButton" (click)="doLogin(authForm.value)" class="btn btn-primary float-sm-right" type="submit">Увійти</button>
             <label class="checkbox-inline float-sm-left">
             <input type="checkbox" value="">
             Запам'ятати мене
-        </label>
+            </label>
         </div>
     </div>
 </form>

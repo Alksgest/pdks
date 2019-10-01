@@ -12,11 +12,13 @@ export class AuthorizationService {
   constructor(private http: HttpClient) { }
 
   login(credentials: AccountCredentials) {
-    this.http.post<AuthToken>(environment.apiUrl + '/login', credentials);
+    const valueToSend = JSON.stringify(credentials);
+    return this.http.post<AuthToken>(environment.apiUrl + 'login/', credentials);
   }
 
   logout(token: AuthToken) {
-    this.http.post<AuthToken>(environment.apiUrl + '/logout', token);
+    const valueToSend = JSON.stringify(token);
+    return this.http.post<AuthToken>(environment.apiUrl + 'logout/', token);
   }
 
 }

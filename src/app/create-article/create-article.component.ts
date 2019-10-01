@@ -23,9 +23,9 @@ export class CreateArticleComponent implements OnInit {
       id: null,
       author: null,
       category: null,
-      content: '',
+      content: null,
       creationDate: null,
-      title: ''
+      title: null
     };
 
   constructor(
@@ -64,11 +64,12 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    this._article.author = { id: 1, username: 'alksgest', role: 'admin' };
+    const tkn = JSON.parse(localStorage.getItem('pdks-token'));
+    this._article.author = tkn.user;
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];
 
-    this.articleService.addArticle(this._article);
+    this.articleService.addArticle({ article: this._article, token: tkn });
 
     this.redirectToHome();
   }

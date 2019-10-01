@@ -21,6 +21,8 @@ import { SingleArticleComponent } from './single-article/single-article.componen
 import { ArticleService } from './common/services/article.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
+import { AuthorizationService } from './common/services/authorization.service';
+import { CategoryService } from './common/services/category.service';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { CreateArticleComponent } from './create-article/create-article.componen
     ])
   ],
   providers: [
-    ArticleService
+    ArticleService,
+    CategoryService,
+    AuthorizationService
   ],
   bootstrap: [AppComponent]
 })

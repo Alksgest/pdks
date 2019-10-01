@@ -27,9 +27,9 @@ export class ArticleService {
     return this.http.get<Article>(environment.apiUrl + 'articles/' + id);
   }
 
-  addArticle(article: Article) {
-    const valueToSend = JSON.stringify(article);
-    this.http.post<Article>(environment.apiUrl + 'articles/', article).subscribe((r) => console.log(r));
+  // addArticle(article: Article) {
+  addArticle(data: any) {
+    this.http.post<Article>(environment.apiUrl + 'articles/', data).subscribe((r) => console.log(r));
   }
 
   private getMaxId() {
