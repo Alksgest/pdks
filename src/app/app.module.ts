@@ -23,6 +23,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { AuthorizationService } from './common/services/authorization.service';
 import { CategoryService } from './common/services/category.service';
+import { AuthGuard } from './common/services/auth-guard.service';
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import { CategoryService } from './common/services/category.service';
       { path: '', component: HomeComponent },
       { path: 'articles', component: HomeComponent },
       { path: 'articles/:id', component: SingleArticleComponent },
-      { path: 'create-article', component: CreateArticleComponent },
+      { path: 'create-article', component: CreateArticleComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginFormComponent },
       { path: '**', component: NotFoundComponent }
     ])
@@ -60,7 +61,8 @@ import { CategoryService } from './common/services/category.service';
   providers: [
     ArticleService,
     CategoryService,
-    AuthorizationService
+    AuthorizationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
