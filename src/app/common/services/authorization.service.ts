@@ -1,24 +1,61 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AccountCredentials } from '../models/account-credentials';
 import { AuthToken } from '../models/auth-token';
 import { environment } from 'src/environments/environment';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
-  constructor(private http: HttpClient) { }
+  // tslint:disable-next-line: variable-name
+  private _isAuthorized = false;
+  // tslint:disable-next-line: variable-name
+  private _isCredentialsValid = true;
+
+  constructor(private http: HttpClient) {
+    const token = localStorage.getItem('pdks-token');
+    if (token !== null) {
+      this._isAuthorized = true;
+    }
+  }
 
   login(credentials: AccountCredentials) {
-    const valueToSend = JSON.stringify(credentials);
-    return this.http.post<AuthToken>(environment.apiUrl + 'login/', credentials);
+    return this.http.post<AuthToken>(environment.apiUrl + 'login/', credentials)
+      .pipe(
+        map((token: AuthToken) => {
+          console.log(token);
+          localStorage.setItem('pdks-token', JSON.stringify(token));
+          this._isCredentialsValid = true;
+          this._isAuthorized = true;
+        }),
+        catchError(
+          (error: HttpErrorResponse) => {
+            this._isCredentialsValid = false;
+            this._isAuthorized = false;
+            return throwError(error.message);
+          }
+        )
+      ).subscribe();
   }
 
   logout(token: AuthToken) {
-    const valueToSend = JSON.stringify(token);
     return this.http.post<AuthToken>(environment.apiUrl + 'logout/', token);
+  }
+
+  get isAuthorized() {
+    return this._isAuthorized;
+  }
+
+  set isAuthorized(value: boolean) {
+    this._isAuthorized = value;
+  }
+
+  get isCredentialsValid() {
+    return this._isCredentialsValid;
   }
 
 }

@@ -4,6 +4,7 @@ import { Category } from '../common/models/category';
 import { Article } from '../common/models/article';
 import { ArticleService } from '../common/services/article.service';
 import { Router } from '@angular/router';
+import { AuthToken } from '../common/models/auth-token';
 
 @Component({
   selector: 'app-create-article',
@@ -64,7 +65,7 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    const tkn = JSON.parse(localStorage.getItem('pdks-token'));
+    const tkn: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
     this._article.author = tkn.user;
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];

@@ -15,8 +15,6 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class LoginBarComponent implements OnInit {
 
-  isValid = true;
-
   authForm: FormGroup;
 
   constructor(
@@ -34,19 +32,14 @@ export class LoginBarComponent implements OnInit {
 
   doLogin(credentials: AccountCredentials) {
     console.log(credentials);
-    this.service.login(credentials)
-      .pipe(
-        map((token: AuthToken) => {
-          console.log(token);
-          localStorage.setItem('pdks-token', JSON.stringify(token));
-          this.isValid = true;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          this.isValid = false;
-          return throwError(error.message);
-        }
-        )
-      ).subscribe();
+    this.service.login(credentials);
+  }
 
+  get isAuthorized() {
+    return this.service.isAuthorized;
+  }
+
+  get isValid() {
+    return this.service.isCredentialsValid;
   }
 }

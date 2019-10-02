@@ -1,4 +1,4 @@
-<form [formGroup]="authForm">
+<form *ngIf="!isAuthorized" [formGroup]="authForm">
     <div class="form-group inner">
         <input formControlName="username" class="form-control" matInput placeholder="Ім’я користувача:" required>
         <p></p>
