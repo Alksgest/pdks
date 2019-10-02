@@ -9,23 +9,21 @@ import { AuthToken } from '../common/models/auth-token';
 })
 export class NavbarComponent implements OnInit {
 
-  token: AuthToken;
-
   constructor(private service: AuthorizationService) { }
 
   ngOnInit() {
-    this.token = JSON.parse(localStorage.getItem('pdks-token'));
   }
 
   logout() {
-    if (this.token !== null) {
-      this.service.logout(this.token);
+    const token = JSON.parse(localStorage.getItem('pdks-token'));
+    if (token !== null) {
+      this.service.logout(token);
       localStorage.removeItem('pdks-token');
     }
   }
 
   get isAdmin() {
-    return this.token == null ? false : this.token.isAdmin;
+    return this.service.isAdmin;
   }
 
 }

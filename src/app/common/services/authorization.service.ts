@@ -20,9 +20,10 @@ export class AuthorizationService {
   private _currentUser: User = null;
 
   constructor(private http: HttpClient) {
-    const token = localStorage.getItem('pdks-token');
+    const token: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
     if (token !== null) {
       this._isAuthorized = true;
+      this._currentUser = token.user;
     }
   }
 
@@ -67,5 +68,9 @@ export class AuthorizationService {
 
   get currentUser() {
     return this._currentUser;
+  }
+
+  get isAdmin() {
+    return this._currentUser === null ? false : this._currentUser.role === 'admin';
   }
 }
