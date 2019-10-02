@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AccountCredentials } from '../common/models/account-credentials';
 import { AuthorizationService } from '../common/services/authorization.service';
 import { map, catchError } from 'rxjs/operators';
@@ -17,6 +17,9 @@ export class LoginBarComponent implements OnInit {
 
   authForm: FormGroup;
 
+  // tslint:disable-next-line: variable-name
+  private _isAutorized = false;
+
   constructor(
     private service: AuthorizationService,
     private formBuilder: FormBuilder) {
@@ -30,13 +33,23 @@ export class LoginBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  doLogin(credentials: AccountCredentials) {
-    console.log(credentials);
-    this.service.login(credentials);
+  @Input() set isAuthorized(value: boolean) {
+    this._isAutorized = value;
   }
 
   get isAuthorized() {
-    return this.service.isAuthorized;
+    return this._isAutorized;
+  }
+
+  doLogin(credentials: AccountCredentials) {
+    console.log(credentials);
+    this.service.login(credentials);
+    this.cleanFields();
+  }
+
+  cleanFields() {
+    this.authForm.get('username').setValue('');
+    this.authForm.get('password').setValue('');
   }
 
   get isValid() {

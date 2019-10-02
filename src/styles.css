@@ -2,10 +2,6 @@
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "~bootstrap/dist/css/bootstrap.css";
-body {
-    padding-top: 80px;
-}
-
 .row {
     border: 2px;
     padding: 20px;

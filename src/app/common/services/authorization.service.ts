@@ -5,6 +5,7 @@ import { AuthToken } from '../models/auth-token';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class AuthorizationService {
   private _isAuthorized = false;
   // tslint:disable-next-line: variable-name
   private _isCredentialsValid = true;
+  // tslint:disable-next-line: variable-name
+  private _currentUser: User = null;
 
   constructor(private http: HttpClient) {
     const token = localStorage.getItem('pdks-token');
@@ -31,11 +34,13 @@ export class AuthorizationService {
           localStorage.setItem('pdks-token', JSON.stringify(token));
           this._isCredentialsValid = true;
           this._isAuthorized = true;
+          this._currentUser = token.user;
         }),
         catchError(
           (error: HttpErrorResponse) => {
             this._isCredentialsValid = false;
             this._isAuthorized = false;
+            this._currentUser = null;
             return throwError(error.message);
           }
         )
@@ -43,7 +48,9 @@ export class AuthorizationService {
   }
 
   logout(token: AuthToken) {
-    return this.http.post<AuthToken>(environment.apiUrl + 'logout/', token);
+    this._isAuthorized = false;
+    this._currentUser = null;
+    return this.http.post<AuthToken>(environment.apiUrl + 'logout/', token).subscribe();
   }
 
   get isAuthorized() {
@@ -58,4 +65,7 @@ export class AuthorizationService {
     return this._isCredentialsValid;
   }
 
+  get currentUser() {
+    return this._currentUser;
+  }
 }

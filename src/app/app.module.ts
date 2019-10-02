@@ -53,6 +53,7 @@ import { CategoryService } from './common/services/category.service';
       { path: 'articles', component: HomeComponent },
       { path: 'articles/:id', component: SingleArticleComponent },
       { path: 'create-article', component: CreateArticleComponent },
+      { path: 'login', component: LoginFormComponent },
       { path: '**', component: NotFoundComponent }
     ])
   ],

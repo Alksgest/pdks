@@ -1,17 +1,29 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" [routerLink]="'/'">Головна <span class="sr-only">(current)</span></a>
+                <a class="nav-link pointer-header" [routerLink]="'/'">Головна <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/'">Проект: “Видатні масони України”</a>
+                <a class="nav-link pointer-header" [routerLink]="'/'">Проект: “Видатні масони України”</a>
+            </li>
+            <li *ngIf="isAdmin" class="nav-item">
+                <a class="nav-link pointer-header" [routerLink]="'/'">Створити статтю</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <a class="nav-link pointer-header" [routerLink]="'/login/'">Увійти</a>
+            </li>
+            <li>
+                <!-- [routerLink]="'/'" -->
+                <a class="nav-link pointer-header" (click)="logout()">Вийти</a>
+            </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
     </div>
 </nav>

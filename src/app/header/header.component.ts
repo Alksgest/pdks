@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthToken } from '../common/models/auth-token';
 
 @Component({
   selector: 'app-header',

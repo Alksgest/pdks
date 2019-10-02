@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './common/models/user';
-import { AuthToken } from './common/models/auth-token';
+import { AuthorizationService } from './common/services/authorization.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +9,17 @@ import { AuthToken } from './common/models/auth-token';
 export class AppComponent implements OnInit {
 
   title = 'msn';
-  currentUser: User;
 
-  constructor() { }
+  constructor(private service: AuthorizationService) { }
 
   ngOnInit(): void {
-    const tkn: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
-    this.currentUser = tkn.user;
+
+  }
+
+  get username() {
+    if (this.service.currentUser !== null) {
+      return this.service.currentUser.username;
+    }
+    return null;
   }
 }
