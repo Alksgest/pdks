@@ -1,8 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Article } from 'src/app/common/models/article';
-import { Category } from 'src/app/common/models/category';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,10 +14,11 @@ export class ArticleService {
   }
 
   getArticles(categoryId?: string) {
+    const t = localStorage.getItem('pdks-token');
     if (!categoryId) {
-      return this.http.get<Article[]>(environment.apiUrl + 'articles/');
+      return this.http.get<Article[]>(environment.apiUrl + 'articles/', { params: { token: t } });
     } else {
-      return this.http.get<Article[]>(environment.apiUrl + 'articles/category/' + categoryId);
+      return this.http.get<Article[]>(environment.apiUrl + 'articles/category/' + categoryId, { params: { token: t } });
     }
   }
 

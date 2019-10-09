@@ -24,6 +24,7 @@ import { CreateArticleComponent } from './create-article/create-article.componen
 import { AuthorizationService } from './common/services/authorization.service';
 import { CategoryService } from './common/services/category.service';
 import { AuthGuard } from './common/services/auth-guard.service';
+import { ApiModule } from 'src/contract';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AuthGuard } from './common/services/auth-guard.service';
     CreateArticleComponent
   ],
   imports: [
+    ApiModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
