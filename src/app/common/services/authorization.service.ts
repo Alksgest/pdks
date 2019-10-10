@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AccountCredentials } from '../models/account-credentials';
-import { AuthToken } from '../models/auth-token';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { User, UserRole } from '../models/user';
+import { User, UserRole } from 'src/contract';
+import { AuthToken } from 'src/contract/model/authToken';
+import { AccountCredentials } from 'src/contract/model/accountCredentials';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +71,6 @@ export class AuthorizationService {
   }
 
   get isAdmin() {
-    return this._currentUser === null ? false : this._currentUser.role === UserRole.Admin;
+    return this._currentUser === null ? false : this._currentUser.userRole === UserRole.Admin;
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Article } from '../common/models/article';
-import { ArticleService } from '../common/services/article.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ArticleService, Article } from 'src/contract';
 
 @Component({
   selector: 'app-single-article',
@@ -20,13 +19,14 @@ export class SingleArticleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = +this.route.snapshot.paramMap.get('id');
+    const token = localStorage.getItem('pdks-token');
 
-    this.service.getArticle(id)
-      .subscribe(article => {
+    this.service.getArticle(id, token)
+      .subscribe((article: Article) => {
         this.article = article;
       },
-        error => {
+        (error: any) => {
           console.log(error);
         });
   }

@@ -1,12 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AccountCredentials } from '../common/models/account-credentials';
 import { AuthorizationService } from '../common/services/authorization.service';
-import { map, catchError } from 'rxjs/operators';
-import { AuthToken } from '../common/models/auth-token';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
+import { AccountCredentials } from 'src/contract/model/accountCredentials';
 
 @Component({
   selector: 'app-login-bar',

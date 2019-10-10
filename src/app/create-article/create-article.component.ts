@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../common/services/category.service';
-import { Category } from '../common/models/category';
-import { Article } from '../common/models/article';
-import { ArticleService } from '../common/services/article.service';
 import { Router } from '@angular/router';
-import { AuthToken } from '../common/models/auth-token';
+import { CategoryService, ArticleService, Category, Article } from 'src/contract';
+import { AuthToken } from 'src/contract/model/authToken';
 
 @Component({
   selector: 'app-create-article',
@@ -65,12 +62,12 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    const tkn: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
-    this._article.author = tkn.user;
+    const token: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
+    this._article.author = token.user;
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];
 
-    this.articleService.addArticle({ article: this._article, token: tkn });
+    this.articleService.postArticle(token, this._article);
 
     this.redirectToHome();
   }

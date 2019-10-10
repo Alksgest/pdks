@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../common/models/category';
-import { CategoryService } from '../common/services/category.service';
+import { Category, CategoryService } from 'src/contract';
 
 @Component({
   selector: 'app-category-bar',

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Article } from '../common/models/article';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ArticleService } from '../common/services/article.service';
-import { CategoryService } from '../common/services/category.service';
 import { map } from 'rxjs/operators';
+import { ArticleService, CategoryService, Article } from 'src/contract';
+import { AuthToken } from 'src/contract/model/AuthToken';
 
 @Component({
   selector: 'app-articles',
@@ -20,19 +19,20 @@ export class ArticlesComponent implements OnInit {
     private articlesService: ArticleService,
     private catService: CategoryService,
     private route: ActivatedRoute
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.route.queryParamMap
-    .pipe(
-      map((params) => {
-        return params.get('category');
-      })
-    ).subscribe(catId => {
-      this.articlesService.getArticles(catId)
-        .subscribe(aritcles =>
-          this._articles = aritcles);
-    });
+      .pipe(
+        map((params) => {
+          return params.get('category');
+        })
+      ).subscribe(catId => {
+        const token = localStorage.getItem('pdks-token');
+        this.articlesService.getArticles(+catId, 10, token)
+          .subscribe((aritcles: Article[]) =>
+            this._articles = aritcles);
+      });
   }
 
   get articles() {

@@ -18,11 +18,9 @@ import { HomeComponent } from './home/home.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { FooterComponent } from './footer/footer.component';
 import { SingleArticleComponent } from './single-article/single-article.component';
-import { ArticleService } from './common/services/article.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { AuthorizationService } from './common/services/authorization.service';
-import { CategoryService } from './common/services/category.service';
 import { AuthGuard } from './common/services/auth-guard.service';
 import { ApiModule } from 'src/contract';
 
@@ -61,8 +59,6 @@ import { ApiModule } from 'src/contract';
     ])
   ],
   providers: [
-    ArticleService,
-    CategoryService,
     AuthorizationService,
     AuthGuard
   ],
