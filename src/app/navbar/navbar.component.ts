@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    const token: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
+    const token: string = localStorage.getItem('pdks-token');
     if (token !== null) {
       this.service.logout(token);
       localStorage.removeItem('pdks-token');

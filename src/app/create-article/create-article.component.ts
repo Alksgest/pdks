@@ -62,12 +62,13 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    const token: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
+    const encoded = localStorage.getItem('pdks-token');
+    const token: AuthToken = JSON.parse(atob(encoded));
     this._article.author = token.user;
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];
 
-    this.articleService.postArticle(token, this._article);
+    this.articleService.postArticle(encoded, this._article);
 
     this.redirectToHome();
   }

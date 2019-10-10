@@ -8,7 +8,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "buildSwagger": "java -jar swagger-codegen-cli.jar generate -i swagger.yaml -l typescript-angular -o src/contract --additional-properties ngVersion=8.3.8"
+        "swagger": "java -jar swagger-codegen-cli.jar generate -i swagger.yaml -l typescript-angular -o src/contract --additional-properties ngVersion=8.3.8"
     },
     "private": true,
     "dependencies": {

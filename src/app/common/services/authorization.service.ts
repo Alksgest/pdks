@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User, UserRole } from 'src/contract';
 import { AuthToken } from 'src/contract/model/authToken';
 import { AccountCredentials } from 'src/contract/model/accountCredentials';
+import { CustomHttpUrlEncodingCodec } from 'src/contract/encoder';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +21,26 @@ export class AuthorizationService {
   private _currentUser: User = null;
 
   constructor(private http: HttpClient) {
-    const token: AuthToken = JSON.parse(localStorage.getItem('pdks-token'));
-    if (token !== null) {
+    const encoded = localStorage.getItem('pdks-token');
+    if (encoded !== null) {
+      const token: AuthToken = JSON.parse(atob(encoded));
       this._isAuthorized = true;
       this._currentUser = token.user;
     }
   }
 
   login(credentials: AccountCredentials) {
-    return this.http.post<AuthToken>(environment.apiUrl + 'login/', credentials)
+    return this.http.post<string>(environment.apiUrl + 'login/', credentials, { responseType: 'text' })
       .pipe(
-        map((token: AuthToken) => {
+        map((token: string) => {
           console.log(token);
-          localStorage.setItem('pdks-token', JSON.stringify(token));
+          localStorage.setItem('pdks-token', token);
+
+          const authToken = JSON.parse(atob(token));
+
           this._isCredentialsValid = true;
           this._isAuthorized = true;
-          this._currentUser = token.user;
+          this._currentUser = authToken.user;
         }),
         catchError(
           (error: HttpErrorResponse) => {
@@ -48,10 +53,15 @@ export class AuthorizationService {
       ).subscribe();
   }
 
-  logout(token: AuthToken) {
+  logout(token: string) {
     this._isAuthorized = false;
     this._currentUser = null;
-    return this.http.post<AuthToken>(environment.apiUrl + 'logout/', token).subscribe();
+
+    // let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+    // queryParameters = queryParameters.set('AuthToken', token as any);
+
+    return this.http.post<string>(environment.apiUrl + 'logout/',
+      token).subscribe();
   }
 
   get isAuthorized() {

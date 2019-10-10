@@ -118,7 +118,7 @@ paths:
           minimum: 0
           maximum: 50
           required: false
-        - in: header
+        - in: query
           name : AuthToken
           description: authorization token
           type: string
@@ -151,7 +151,9 @@ paths:
           name : AuthToken
           description: authorization token
           schema:
-            $ref: '#/definitions/AuthToken'
+            type: string
+          # schema:
+          #   $ref: '#/definitions/AuthToken'
           required: true
       responses:
         '201':
