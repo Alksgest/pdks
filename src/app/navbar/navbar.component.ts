@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from '../common/services/authorization.service';
-import { AuthToken } from 'src/contract/model/authToken';
+import { AuthToken } from 'src/app/common/model/authToken';
 
 @Component({
   selector: 'app-navbar',

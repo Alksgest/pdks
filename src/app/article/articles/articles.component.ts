@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ArticleService, CategoryService, Article } from 'src/contract';
-import { AuthToken } from 'src/contract/model/AuthToken';
+import { AuthToken } from 'src/app/common/model/authToken';
 
 @Component({
   selector: 'app-articles',

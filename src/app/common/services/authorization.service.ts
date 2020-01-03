@@ -4,8 +4,8 @@ import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User, UserRole } from 'src/contract';
-import { AuthToken } from 'src/contract/model/authToken';
-import { AccountCredentials } from 'src/contract/model/accountCredentials';
+import { AuthToken } from 'src/app/common/model/authToken';
+import { AccountCredentials } from 'src/app/common/model/accountCredentials';
 import { CustomHttpUrlEncodingCodec } from 'src/contract/encoder';
 
 @Injectable({
@@ -30,7 +30,11 @@ export class AuthorizationService {
   }
 
   login(credentials: AccountCredentials) {
-    return this.http.post<string>(environment.apiUrl + 'login/', credentials, { responseType: 'text' })
+    const loginUrl = environment.apiUrl + 'login/';
+    const options = { responseType: 'json' };
+    console.log(credentials);
+    console.log(loginUrl);
+    return this.http.post<string>(loginUrl, credentials, { responseType: 'text' })
       .pipe(
         map((token: string) => {
           console.log(token);

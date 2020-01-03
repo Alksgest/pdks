@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryService, ArticleService, Category, Article } from 'src/contract';
-import { AuthToken } from 'src/contract/model/authToken';
+import { AuthToken } from 'src/app/common/model/authToken';
 
 @Component({
   selector: 'app-create-article',

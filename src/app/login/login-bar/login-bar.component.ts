@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthorizationService } from '../common/services/authorization.service';
+import { AuthorizationService } from '../../common/services/authorization.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { AccountCredentials } from 'src/contract/model/accountCredentials';
+import { AccountCredentials } from 'src/app/common/model/accountCredentials';
 
 @Component({
   selector: 'app-login-bar',
@@ -37,7 +37,6 @@ export class LoginBarComponent implements OnInit {
   }
 
   doLogin(credentials: AccountCredentials) {
-    console.log(credentials);
     this.service.login(credentials);
     this.cleanFields();
   }
