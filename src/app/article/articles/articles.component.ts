@@ -19,9 +19,7 @@ export class ArticlesComponent implements OnInit {
   private _articles: Article[] = [];
 
   constructor(
-    private router: Router,
     private articlesService: ArticleService,
-    private catService: CategoryService,
     private route: ActivatedRoute
   ) { }
 

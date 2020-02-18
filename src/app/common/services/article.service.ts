@@ -20,7 +20,7 @@ export class ArticleService {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                Autorization: token === null ? 'no-token' : token
+                Authorization: token === null ? 'no-token' : token
             })
         };
     }

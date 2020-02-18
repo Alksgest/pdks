@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Subscription, Observable } from 'rxjs';
 
 import { AuthToken } from 'src/app/common/model/authToken';
 import { environment } from 'src/environments/environment';
@@ -17,78 +17,79 @@ import { UserRole } from '../model/UserRole';
 })
 export class AuthorizationService {
 
-  // tslint:disable-next-line: variable-name
-  private _isAuthorized = false;
-  // tslint:disable-next-line: variable-name
-  private _isCredentialsValid = true;
-  // tslint:disable-next-line: variable-name
-  private _currentUser: User = null;
+  public isAuthorized = false;
+  public isCredentialsValid = true;
+  public currentUser: User = null;
 
   constructor(private http: HttpClient) {
     const encoded = localStorage.getItem('pdks-token');
     if (encoded !== null) {
       const token: AuthToken = JSON.parse(atob(encoded));
-      this._isAuthorized = true;
-      this._currentUser = token.user;
+      this.isAuthorized = true;
+      this.currentUser = token.user;
     }
   }
 
-  login(credentials: AccountCredentials) {
+  public login(credentials: AccountCredentials): any {
+
     const loginUrl = environment.apiUrl + 'login/';
-    const options = { responseType: 'text' };
-    console.log(credentials);
-    console.log(loginUrl);
-    return this.http.post<string>(loginUrl, credentials)
-      .pipe(
-        map((token: string) => {
-          console.log(token);
-          localStorage.setItem('pdks-token', token);
+    const options = this.createOptions(credentials);
 
-          const authToken = JSON.parse(atob(token));
+    console.log('Trying to loging in...');
 
-          this._isCredentialsValid = true;
-          this._isAuthorized = true;
-          this._currentUser = authToken.user;
-        }),
-        catchError(
-          (error: HttpErrorResponse) => {
-            this._isCredentialsValid = false;
-            this._isAuthorized = false;
-            this._currentUser = null;
-            return throwError(error.message);
-          }
-        )
-      ).subscribe();
+    return this.http.get<string>(loginUrl, options)
+      .subscribe(
+        (token: string) => {
+          this.saveUserCredentials(token);
+        },
+        (error: HttpErrorResponse) => {
+          this.invalidateUser();
+          return throwError(error.message);
+        }
+      );
   }
 
-  logout(token: string) {
-    this._isAuthorized = false;
-    this._currentUser = null;
 
-    // let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
-    // queryParameters = queryParameters.set('AuthToken', token as any);
 
-    return this.http.post<string>(environment.apiUrl + 'logout/',
-      token).subscribe();
+  public logout(token: string): Subscription {
+    this.invalidateUser();
+
+    const url = environment.apiUrl + 'logout/';
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: JSON.stringify(token),
+      })
+    };
+
+    return this.http.get<string>(url, options).subscribe();
   }
 
-  get isAuthorized() {
-    return this._isAuthorized;
+  private createOptions(credentials: AccountCredentials): {} {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Account-Credentials': JSON.stringify(credentials),
+      }),
+      responseType: 'text' as 'json'
+    };
   }
 
-  set isAuthorized(value: boolean) {
-    this._isAuthorized = value;
+  private saveUserCredentials(token: string) {
+    localStorage.setItem('pdks-token', token);
+    const authToken = JSON.parse(atob(token));
+    this.isCredentialsValid = true;
+    this.isAuthorized = true;
+    this.currentUser = authToken.user;
   }
 
-  get isCredentialsValid() {
-    return this._isCredentialsValid;
+  private invalidateUser(): void {
+    this.isCredentialsValid = false;
+    this.isAuthorized = false;
+    this.currentUser = null;
   }
 
-  get currentUser() {
-    return this._currentUser;
-  }
-
-  get isAdmin() {
-    return this._currentUser === null ? false : this._currentUser.userRole === UserRole.Admin;
+  get isAdmin(): boolean {
+    return this.currentUser === null ? false : this.currentUser.userRole === UserRole.Admin;
   }
 }

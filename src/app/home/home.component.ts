@@ -15,10 +15,7 @@ export class HomeComponent {
 
   // tslint:disable-next-line: variable-name
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private catService: CategoryService,
-    private authService: AuthorizationService) { }
+  constructor(private authService: AuthorizationService) { }
 
   // @Input() set isAuthorized(value: boolean) {
   //   this._isAutorized = value;

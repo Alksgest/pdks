@@ -12,8 +12,8 @@ export class LoginBarComponent implements OnInit {
 
   authForm: FormGroup;
 
-  // tslint:disable-next-line: variable-name
-  private _isAutorized = false;
+  @Input()
+  public isAuthorized = false;
 
   constructor(
     private service: AuthorizationService,
@@ -28,25 +28,17 @@ export class LoginBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Input() set isAuthorized(value: boolean) {
-    this._isAutorized = value;
-  }
-
-  get isAuthorized() {
-    return this._isAutorized;
-  }
-
-  doLogin(credentials: AccountCredentials) {
+  doLogin(credentials: AccountCredentials): void {
     this.service.login(credentials);
     this.cleanFields();
   }
 
-  cleanFields() {
+  cleanFields(): void {
     this.authForm.get('username').setValue('');
     this.authForm.get('password').setValue('');
   }
 
-  get isValid() {
+  get isValid(): boolean {
     return this.service.isCredentialsValid;
   }
 }
