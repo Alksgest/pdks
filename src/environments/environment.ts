@@ -8,7 +8,7 @@ export const environment = {
   vscode_port: '5001',
   vs_studio_port: '44387',
   api_path: '/api/',
-  apiUrl: 'https://localhost:44387/api/'
+  apiUrl: 'https://localhost:5001/api/'
 };
 
 /*

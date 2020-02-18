@@ -1,9 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { RouterModule } from '@angular/router';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -22,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CreateArticleComponent } from './article/create-article/create-article.component';
 import { AuthorizationService } from './common/services/authorization.service';
 import { AuthGuard } from './common/guards/auth-guard.service';
-import { ApiModule } from 'src/contract';
+import { CategoryService } from './common/services/category.service';
+import { ArticleService } from './common/services/article.service';
 
 
 @NgModule({
@@ -41,7 +44,6 @@ import { ApiModule } from 'src/contract';
     CreateArticleComponent
   ],
   imports: [
-    ApiModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -60,6 +62,8 @@ import { ApiModule } from 'src/contract';
   ],
   providers: [
     AuthorizationService,
+    CategoryService,
+    ArticleService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

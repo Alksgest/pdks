@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ArticleService, Article } from 'src/contract';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
+import { Article } from '../../common/model/article';
+import { ArticleService } from '../../common/services/article.service';
 
 @Component({
   selector: 'app-single-article',

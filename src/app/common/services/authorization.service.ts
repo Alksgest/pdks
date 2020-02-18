@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { User, UserRole } from 'src/contract';
+
 import { AuthToken } from 'src/app/common/model/authToken';
+import { environment } from 'src/environments/environment';
 import { AccountCredentials } from 'src/app/common/model/accountCredentials';
-import { CustomHttpUrlEncodingCodec } from 'src/contract/encoder';
+
+import { User } from '../model/User';
+import { UserRole } from '../model/UserRole';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +35,10 @@ export class AuthorizationService {
 
   login(credentials: AccountCredentials) {
     const loginUrl = environment.apiUrl + 'login/';
-    const options = { responseType: 'json' };
+    const options = { responseType: 'text' };
     console.log(credentials);
     console.log(loginUrl);
-    return this.http.post<string>(loginUrl, credentials, { responseType: 'text' })
+    return this.http.post<string>(loginUrl, credentials)
       .pipe(
         map((token: string) => {
           console.log(token);

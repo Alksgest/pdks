@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { AuthorizationService } from '../common/services/authorization.service';
-import { ArticleService, CategoryService } from 'src/contract';
+import { CategoryService } from '../common/services/category.service';
 
 @Component({
   selector: 'app-home',

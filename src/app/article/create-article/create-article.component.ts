@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService, ArticleService, Category, Article } from 'src/contract';
-import { AuthToken } from 'src/app/common/model/authToken';
+import { Component, OnInit } from '@angular/core';
+
+import { Article } from '../../common/model/article';
+import { Category } from '../../common/model/Category';
+import { AuthToken } from '../../common/model/authToken';
+import { ArticleService } from '../../common/services/article.service';
+import { CategoryService } from '../../common/services/category.service';
 
 @Component({
   selector: 'app-create-article',
@@ -16,15 +20,7 @@ export class CreateArticleComponent implements OnInit {
   private _choosedCategories: Category[] = [];
 
   // tslint:disable-next-line: variable-name
-  private _article: Article =
-    {
-      id: null,
-      author: null,
-      category: null,
-      content: null,
-      creationDate: null,
-      title: null
-    };
+  private _article: Article;
 
   constructor(
     private categoryService: CategoryService,
@@ -34,8 +30,8 @@ export class CreateArticleComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getCategories()
-      .subscribe(cats => {
-        this._categories = cats;
+      .subscribe((categories: Category[]) => {
+        this._categories = categories;
       });
   }
 
@@ -62,13 +58,13 @@ export class CreateArticleComponent implements OnInit {
 
   // article: Article
   createArticle() {
-    const encoded = localStorage.getItem('pdks-token');
-    const token: AuthToken = JSON.parse(atob(encoded));
+    const encodedToken = localStorage.getItem('pdks-token');
+    const token: AuthToken = JSON.parse(atob(encodedToken));
     this._article.author = token.user;
     this._article.creationDate = new Date();
     this._article.category = this.choosedCategories[0];
 
-    this.articleService.postArticle(encoded, this._article);
+    this.articleService.postArticle(encodedToken, this._article);
 
     this.redirectToHome();
   }

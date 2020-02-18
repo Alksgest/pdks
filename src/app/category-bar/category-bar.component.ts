@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, CategoryService } from 'src/contract';
+
+import { Category } from '../common/model/Category';
+import { CategoryService } from '../common/services/category.service';
 
 @Component({
   selector: 'app-category-bar',
@@ -14,12 +16,13 @@ export class CategoryBarComponent implements OnInit {
   header = 'Категорії';
   // temp categories
   categories: Category[];
+
   constructor(private catService: CategoryService) { }
 
   ngOnInit() {
     this.catService.getCategories()
-      .subscribe(cats => {
-        this.categories = cats;
+      .subscribe((categories: Category[]) => {
+        this.categories = categories;
       });
     // this.categories = this.catService.getCategories();
   }
