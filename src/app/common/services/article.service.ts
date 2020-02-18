@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ArticleService {
 
-    private url = environment.apiUrl + 'articles/';
+    private url = environment.apiUrl + 'articles';
 
     constructor(private http: HttpClient) {
     }
@@ -20,7 +20,7 @@ export class ArticleService {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                Authorization: token === null ? 'no-token' : token
+                Authorization: token === null ? '' : token
             })
         };
     }
@@ -34,9 +34,11 @@ export class ArticleService {
     }
 
     getArticles(categoryId: number, count: number, token: string): Observable<Article[]> {
-        const httpOptions = this.createOptions(token);
 
-        return this.http.get<Article[]>(this.url, httpOptions);
+        const httpOptions = this.createOptions(token);
+        const url = this.url + '?category=' + categoryId + '&?limit=' + count;
+
+        return this.http.get<Article[]>(url, httpOptions);
     }
 
     postArticle(token: string, article: Article) {
