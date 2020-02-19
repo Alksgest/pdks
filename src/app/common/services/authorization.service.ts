@@ -49,6 +49,16 @@ export class AuthorizationService {
       );
   }
 
+  public invalidateOnStart() {
+    const token = localStorage.getItem('pdks-token');
+    if (token) {
+      const authToken: AuthToken = JSON.parse(atob(token));
+      if (new Date() >= authToken.expirationTime) {
+        this.logout(token);
+      }
+    }
+  }
+
 
 
   public logout(token: string): Subscription {
@@ -77,13 +87,14 @@ export class AuthorizationService {
 
   private saveUserCredentials(token: string) {
     localStorage.setItem('pdks-token', token);
-    const authToken = JSON.parse(atob(token));
+    const authToken: AuthToken = JSON.parse(atob(token));
     this.isCredentialsValid = true;
     this.isAuthorized = true;
     this.currentUser = authToken.user;
   }
 
   private invalidateUser(): void {
+    localStorage.removeItem('pdks-token');
     this.isCredentialsValid = false;
     this.isAuthorized = false;
     this.currentUser = null;

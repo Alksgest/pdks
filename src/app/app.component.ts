@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private service: AuthorizationService) { }
 
   ngOnInit(): void {
-
+    this.service.invalidateOnStart();
   }
 
   get username() {
