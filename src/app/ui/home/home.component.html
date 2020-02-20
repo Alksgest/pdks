@@ -1,15 +1,15 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-sm-8 themed-grid-col">
-            <app-articles></app-articles>
+            <pdks-articles></pdks-articles>
         </div>
         <div class="col-sm-4 themed-grid-col">
             <div>
-                <app-category-bar></app-category-bar>
+                <pdks-category-bar [categories]="categories"></pdks-category-bar>
             </div>
             <p></p>
             <div class="container">
-                <app-login-bar [isAuthorized]="isAuthorized"></app-login-bar>
+                <pdks-login-bar [isAuthorized]="isAuthorized"></pdks-login-bar>
             </div>
         </div>
     </div>

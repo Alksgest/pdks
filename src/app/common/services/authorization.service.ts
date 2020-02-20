@@ -101,6 +101,6 @@ export class AuthorizationService {
   }
 
   get isAdmin(): boolean {
-    return this.currentUser === null ? false : this.currentUser.userRole === UserRole.Admin;
+    return this.currentUser === null ? false : this.currentUser.role === UserRole.Admin;
   }
 }

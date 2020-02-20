@@ -3,13 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { map } from 'rxjs/operators';
 
-import { AuthToken } from '../../common/model/authToken';
-import { Article } from '../../common/model/article';
-import { ArticleService } from '../../common/services/article.service';
-import { CategoryService } from '../../common/services/category.service';
+import { AuthToken } from '../../../common/model/authToken';
+import { Article } from '../../../common/model/article';
+import { ArticleService } from '../../../common/services/article.service';
+import { CategoryService } from '../../../common/services/category.service';
 
 @Component({
-  selector: 'app-articles',
+  selector: 'pdks-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.css']
 })

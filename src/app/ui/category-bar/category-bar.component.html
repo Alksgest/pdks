@@ -1,6 +1,6 @@
 <div class="container">
     <div class="inner">
-        <h2>{{header}}</h2>
+        <h2>Категорії</h2>
         <div class="list-group">
             <a [routerLink]="'/articles/'" [queryParams]="{category: cat.id}" class="list-group-item" *ngFor="let cat of categories">
                 <mat-icon>keyboard_arrow_right</mat-icon>{{cat.title}}

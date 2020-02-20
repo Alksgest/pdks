@@ -9,7 +9,7 @@
                 <a class="nav-link pointer-header" [routerLink]="'/'">Проект: “Видатні масони України”</a>
             </li>
             <li *ngIf="isAdmin" class="nav-item">
-                <a class="nav-link pointer-header" [routerLink]="'/create-article'">Створити статтю</a>
+                <a class="nav-link pointer-header" [state]="{data: categories}" [routerLink]="'/create-article'">Створити статтю</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

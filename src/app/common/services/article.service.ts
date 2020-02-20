@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { Article } from '../model/article';
 import { environment } from '../../../environments/environment';
@@ -13,10 +14,9 @@ export class ArticleService {
 
     private url = environment.apiUrl + 'articles';
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) { }
 
-    private createOptions(token: string) {
+    private createOptions(token: string): {} {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -41,10 +41,10 @@ export class ArticleService {
         return this.http.get<Article[]>(url, httpOptions);
     }
 
-    postArticle(token: string, article: Article) {
+    postArticle(token: string, article: Article): void {
 
         const httpOptions = this.createOptions(token);
-
-        return this.http.post<Article>(this.url, article, httpOptions);
+        console.log(this.url);
+        this.http.post(this.url, article, httpOptions).subscribe();
     }
 }

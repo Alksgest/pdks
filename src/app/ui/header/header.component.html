@@ -6,8 +6,8 @@
         <div class="col-sm-10">
             <h2>ДЛ "ПАЛОМНИКИ ДО КРАЇНИ СХОДУ" №17 на сході м. Запоріжжя</h2>
             <h4>Шлях до мети є Метою!</h4>
-            <p *ngIf="username !== null">Вітаємо, пане {{username}}!</p>
+            <p *ngIf="username">Вітаємо, пане {{username}}!</p>
         </div>
     </div>
-    <app-navbar></app-navbar>
+    <pdks-navbar [categories]="categories"></pdks-navbar>
 </div>

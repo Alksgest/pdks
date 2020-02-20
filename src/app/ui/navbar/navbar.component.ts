@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from '../common/services/authorization.service';
-import { AuthToken } from 'src/app/common/model/authToken';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Category } from '../../common/model/Category';
+import { AuthorizationService } from '../../common/services/authorization.service';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'pdks-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  @Input()
+  public categories: Category[];
 
   constructor(private service: AuthorizationService) { }
 

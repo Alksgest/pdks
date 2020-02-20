@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthorizationService } from '../../common/services/authorization.service';
+import { AuthorizationService } from '../../../common/services/authorization.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AccountCredentials } from 'src/app/common/model/accountCredentials';
 
 @Component({
-  selector: 'app-login-bar',
+  selector: 'pdks-login-bar',
   templateUrl: './login-bar.component.html',
   styleUrls: ['./login-bar.component.css']
 })

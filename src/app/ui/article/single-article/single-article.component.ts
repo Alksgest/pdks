@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
-import { Article } from '../../common/model/article';
-import { ArticleService } from '../../common/services/article.service';
+import { Article } from '../../../common/model/article';
+import { ArticleService } from '../../../common/services/article.service';
 
 @Component({
-  selector: 'app-single-article',
+  selector: 'pdks-single-article',
   templateUrl: './single-article.component.html',
   styleUrls: ['./single-article.component.css']
 })

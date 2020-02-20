@@ -3,20 +3,34 @@
         <div class=" form-group">
             <div>
                 <label for="title ">Заголовок</label>
-                <input #title="ngModel" name="title" [(ngModel)]="article.title" id="title" type="text " class="form-control" aria-describedby="basic-addon2" required>
+                <input #title="ngModel" 
+                        name="title" 
+                        [(ngModel)]="article.title" 
+                        id="title" 
+                        type="text " 
+                        class="form-control" 
+                        aria-describedby="basic-addon2" 
+                        required>
                 <div *ngIf="title.touched && !title.valid" class="alert alert-danger">Введіть заголовок.</div>
             </div>
 
             <div class="form-group">
                 <label for="textInput">Текст (включно з html розміткою):</label>
-                <textarea #textInput="ngModel" name="content" [(ngModel)]="article.content" class="form-control" rows="5 " id="textInput" required></textarea>
+                <textarea #textInput="ngModel" 
+                        name="content" 
+                        [(ngModel)]="article.content" 
+                        class="form-control" 
+                        rows="5" 
+                        id="textInput" 
+                        required>
+                </textarea>
                 <div *ngIf="textInput.touched && !textInput.valid" class="alert alert-danger">Введіть текст.</div>
             </div>
 
             <div>
                 <div ngbDropdown class="d-inline-block form-group">
-                    <button class="btn btn-outline-primary " id="categoryDropdown " ngbDropdownToggle>Оберіть категорію</button>
-                    <!-- #choosedCats="ngModel" name="choosedCats" [(ngModel)]="article.categories" -->
+                    <button #categoryButton class="btn btn-outline-primary " id="categoryDropdown " ngbDropdownToggle>Оберіть категорію</button>
+                    <!-- #choosedCategories="ngModel" name="choosedCategories" [(ngModel)]="article.categories" -->
                     <div ngbDropdownMenu aria-labelledby="categoryDropdown">
                         <button (click)="categoryClick(cat)" ngbDropdownItem *ngFor="let cat of categories">{{cat.title}}</button>
                     </div>
@@ -29,17 +43,6 @@
             </div>
 
         </div>
-        <button [disabled]="!(title.valid && textInput.valid)" (click)="createArticle()" class="btn btn-primary" type="button ">Стоворити</button>
+        <button [disabled]="!(title.valid && textInput.valid)" (click)="createArticle()" class="btn btn-primary" type="button">Стоворити</button>
     </form>
 </div>
-
-
-
-
-<!-- <label for="category ">Category</label>
-<select ngModel #category="ngModel " class="form-control " name="category " id="category ">
-    <option></option>
-    <option *ngFor="let category of categories " [value]="category.id ">
-        {{ category.title }}
-    </option>
-</select> -->
