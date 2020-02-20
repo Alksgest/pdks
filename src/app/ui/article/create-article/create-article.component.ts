@@ -6,6 +6,7 @@ import { Category } from '../../../common/model/Category';
 import { AuthToken } from '../../../common/model/authToken';
 import { ArticleService } from '../../../common/services/article.service';
 import { CategoryService } from '../../../common/services/category.service';
+import { UserRole } from 'src/app/common/model/UserRole';
 
 @Component({
   selector: 'pdks-create-article',
@@ -31,7 +32,7 @@ export class CreateArticleComponent implements OnInit {
     this.categories = history.state.data;
     if (this.categories === null || this.categories === undefined || this.categories.length === 0) {
       this.categoryService.getCategories()
-      .subscribe((categories: Category[]) => this.categories = categories);
+        .subscribe((categories: Category[]) => this.categories = categories);
     }
   }
 
@@ -52,9 +53,10 @@ export class CreateArticleComponent implements OnInit {
     this.article.creationDate = new Date();
     this.article.category = this.choosedCategories[0];
 
-    this.articleService.postArticle(token, this.article);
-
-    // this.redirectToHome();
+    this.articleService.postArticle(token, this.article, UserRole.SecondDegree)
+      .subscribe(() => {
+        this.redirectToHome();
+      });
   }
 
   private redirectToHome() {
